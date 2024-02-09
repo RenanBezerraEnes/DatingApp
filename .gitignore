@@ -15,3 +15,10 @@
 
 # Ignore dependencies (specific to your project setup)
 /node_modules
+
+*.sqlite
+*.db
+
+obj/Debug/
+
+bin/
