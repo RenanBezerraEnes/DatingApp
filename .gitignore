@@ -19,6 +19,6 @@
 *.sqlite
 *.db
 
-obj/Debug/
+# obj/Debug/
 
 bin/
