@@ -24,10 +24,14 @@ public class UsersController : ControllerBase
         return users;
     }
 
-    [HttpGet("id")] //api/users/{id}
+    [HttpGet("{id}")] //api/users/{id}
     public ActionResult<AppUser> GetUser(int id)
     {
         var user = _context.Users.Find(id);
+
+        if(user == null) {
+            return NotFound();
+        }
         return user;
 
         //or return _context.Users.Find(id);
