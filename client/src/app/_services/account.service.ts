@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-baseUrl = 'https//localhost:7249/api/';
-private http = Inject(HttpClient);
+apiUrl = 'https//localhost:7249/api/';
+private http = inject(HttpClient)
 
 constructor() { }
 
 login(model: any) {
-  return this.http.post(this.baseUrl + 'account/login', model);
+  return this.http.post(this.apiUrl + 'account/login', model);
  }
 }
