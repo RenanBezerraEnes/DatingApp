@@ -23,12 +23,20 @@ export class NavComponent implements OnInit {
             username: ['', Validators.required],
             password: ['', Validators.required]
           });
+          this.getCurrentUser();
+
+          console.log(this.loggedIn, 'In and out');
+    }
+
+    getCurrentUser(){
+        this.accountService.currentUser$.subscribe({
+            next: user => this.loggedIn = !!user,
+            error: error => console.log(error)
+        })
     }
 
     login() {
-        // Check if the form is valid before proceeding
         if (this.model.valid) {
-            // Pass the form values to the login function
             this.accountService.login(this.model.value).subscribe({
                 next: (response: any) => {
                     console.log(response);
@@ -40,6 +48,7 @@ export class NavComponent implements OnInit {
     }
 
     logout(){
+        this.accountService.logout();
         this.loggedIn = false;
     }
     
