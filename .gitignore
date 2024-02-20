@@ -22,3 +22,5 @@
 # obj/Debug/
 
 bin/
+API/localhost-key.pem
+API/localhost.pem

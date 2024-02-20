@@ -12,7 +12,20 @@
             <a class="nav-link">Messages</a>
           </li>
         </ul>
-        <form class="d-flex" autocomplete="off" [formGroup]="model" (ngSubmit)="login()" >
+
+        <div class="d-flex align-items-center" *ngIf="loggedIn" dropdown>
+          <a class="dropdown-item text-light" dropdownToggle>Welcome</a>
+          <a class="dropdown-item text-light">Edit Profile</a>
+          <a class="dropdown-item text-light" (click)="logout()">Logout</a>
+          <!-- <div class="dropdown-menu">
+            <a class="dropdown-item">Edit Profile</a>
+            <a class="dropdown-item" (click)="logout()">Logout</a>
+          </div> -->
+        </div>
+
+
+
+        <form *ngIf="!loggedIn" class="d-flex" autocomplete="off" [formGroup]="model" (ngSubmit)="login()" >
           <input 
           formControlName="username"
           class="form-control me-2" 
