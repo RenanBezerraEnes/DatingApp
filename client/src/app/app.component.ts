@@ -6,13 +6,14 @@ import { Observable } from 'rxjs';
 import { NavComponent } from "./nav/nav.component";
 import { AccountService } from './_services/account.service';
 import { User } from './_models/user';
+import { HomeComponent } from './home/home.component';
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, HttpClientModule, NgIf, CommonModule, NavComponent]
+    imports: [RouterOutlet, HttpClientModule, NgIf, CommonModule, NavComponent, HomeComponent]
 })
 export class AppComponent implements OnInit{
   title = 'client';
