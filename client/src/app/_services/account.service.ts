@@ -26,6 +26,18 @@ login(model: any) {
   )
  }
 
+ register(model: any){
+  return this.http.post<User>(this.apiUrl + 'account/register', model).pipe(
+    map(user => {
+      if(user){
+        localStorage.setItem('user', JSON.stringify(user));
+        this.currentUserSource.next(user);
+      }
+      return user;
+    })
+  )
+ }
+
  setCurrentUser(user: User) {
   this.currentUserSource.next(user);
  }
