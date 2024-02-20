@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-register',
@@ -13,23 +14,28 @@ import { EventEmitter } from '@angular/core';
 export class RegisterComponent implements OnInit {
   model!: FormGroup;;
   private fb = inject(FormBuilder); 
-  @Input() usersFromHomeComponent: any;
+  private accountService = inject(AccountService);
   @Output() cancelRegister: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-
-  constructor() { }
 
   ngOnInit() {
     this.model = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-
-    console.log(this.usersFromHomeComponent);
   }
 
   register(){
-    console.log(this.model);
+    if(this.model.valid){
+      this.accountService.register(this.model.value).subscribe({
+        next: response => {
+          console.log(response);
+          this.cancel();
+        },
+        error: error => {
+          console.log(error);
+        }
+      })
+    }
   }
 
   cancel(){
