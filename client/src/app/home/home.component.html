@@ -1,5 +1,5 @@
 <div class="container mt-5">
-  <div style="text-align: center;" *ngIf="!registerMode">
+  <div class="text-center" *ngIf="!registerMode">
     <h1>Find your match</h1>
     <p class="lead">
       Come on in to view your matches... all you need to do is to sign up!
@@ -17,7 +17,7 @@
   <div class="container" *ngIf="registerMode">
     <div class="row justify-content-center">
       <div class="col-4">
-        <p>Register form goes here</p>
+        <app-register></app-register>
       </div>
     </div>
   </div>
