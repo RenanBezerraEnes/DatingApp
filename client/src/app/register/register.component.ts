@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-register',
@@ -12,6 +13,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class RegisterComponent implements OnInit {
   model!: FormGroup;;
   private fb = inject(FormBuilder); 
+  @Input() usersFromHomeComponent: any;
+  @Output() cancelRegister: EventEmitter<boolean> = new EventEmitter<boolean>();
+
 
   constructor() { }
 
@@ -20,6 +24,8 @@ export class RegisterComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+
+    console.log(this.usersFromHomeComponent);
   }
 
   register(){
@@ -27,7 +33,7 @@ export class RegisterComponent implements OnInit {
   }
 
   cancel(){
-    console.log('cancelled!');
+    this.cancelRegister.emit(false);
   }
 
 }

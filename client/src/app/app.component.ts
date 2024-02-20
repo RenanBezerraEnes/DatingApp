@@ -17,16 +17,12 @@ import { HomeComponent } from './home/home.component';
 })
 export class AppComponent implements OnInit{
   title = 'client';
-  users$: Observable<any> | undefined;
+  //users$: Observable<any> | undefined;
   constructor(private http: HttpClient, private accountService: AccountService){}
 
   ngOnInit(): void {
-    this.getUsers();
+   // this.getUsers();
     this.setCurrentUser();
-  }
-
-  getUsers(){
-    this.users$ = this.http.get("https://localhost:7249/api/users")
   }
 
   setCurrentUser(){
