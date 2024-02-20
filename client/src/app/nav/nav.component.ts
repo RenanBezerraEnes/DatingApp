@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit, inject } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from '../_services/account.service';
+import { Observable, of } from 'rxjs';
+import { User } from '../_models/user';
 
 @Component({
     selector: 'app-nav',
@@ -13,9 +15,8 @@ import { AccountService } from '../_services/account.service';
     styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit { 
-    model!: FormGroup;
-    loggedIn = false;
-    private accountService = inject(AccountService);
+    model!: FormGroup; 
+    public accountService = inject(AccountService);
     private fb = inject(FormBuilder);
 
     ngOnInit(): void {
@@ -23,16 +24,6 @@ export class NavComponent implements OnInit {
             username: ['', Validators.required],
             password: ['', Validators.required]
           });
-          this.getCurrentUser();
-
-          console.log(this.loggedIn, 'In and out');
-    }
-
-    getCurrentUser(){
-        this.accountService.currentUser$.subscribe({
-            next: user => this.loggedIn = !!user,
-            error: error => console.log(error)
-        })
     }
 
     login() {
@@ -40,7 +31,6 @@ export class NavComponent implements OnInit {
             this.accountService.login(this.model.value).subscribe({
                 next: (response: any) => {
                     console.log(response);
-                    this.loggedIn = true;
                 },
                 error: (error: any) => console.log(error)
             });
@@ -49,7 +39,6 @@ export class NavComponent implements OnInit {
 
     logout(){
         this.accountService.logout();
-        this.loggedIn = false;
     }
     
 
