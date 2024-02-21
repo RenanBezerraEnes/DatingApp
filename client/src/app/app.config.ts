@@ -9,5 +9,10 @@ import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(), provideHttpClient(withFetch()), TooltipModule, provideToastr(), provideAnimations()]
+  providers: [provideRouter(routes),
+     provideClientHydration(),
+      provideHttpClient(withFetch()),
+       TooltipModule,
+        provideToastr(),
+         provideAnimations()]
 };
