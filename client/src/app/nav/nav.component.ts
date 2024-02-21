@@ -1,15 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, OnInit, inject } from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, inject } from '@angular/core';
+import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from '../_services/account.service';
-import { Observable, of } from 'rxjs';
-import { User } from '../_models/user';
+import { RouterLink, RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-nav',
     standalone: true,
     imports: [
-        CommonModule, ReactiveFormsModule
+        CommonModule, ReactiveFormsModule, RouterModule
     ],
     templateUrl: './nav.component.html',
     styleUrls: ['./nav.component.css']
