@@ -50,7 +50,7 @@ public class AccountController : BaseApiController
     {
         var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.UserName);
 
-        if (user == null) return Unauthorized("The credentials are incorrect 1 ");
+        if (user == null) return Unauthorized("The credentials are incorrect");
 
         using var hmac = new HMACSHA512(user.PasswordSalt);
 
@@ -58,7 +58,7 @@ public class AccountController : BaseApiController
 
         for (int i = 0; i < computedHash.Length; i++)
         {
-            if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("The credentials are incorrect 2");
+            if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("The credentials are incorrect");
         }
 
         return new UserDto

@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from '../_services/account.service';
-import { Router, RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-nav',
@@ -11,13 +12,14 @@ import { Router, RouterLink, RouterModule } from '@angular/router';
         CommonModule, ReactiveFormsModule, RouterModule
     ],
     templateUrl: './nav.component.html',
-    styleUrls: ['./nav.component.css']
+    styleUrls: ['./nav.component.css'],
 })
 export class NavComponent implements OnInit { 
     model!: FormGroup; 
     public accountService = inject(AccountService);
     private fb = inject(FormBuilder);
     private router = inject(Router);
+    private toastr = inject(ToastrService)
 
     ngOnInit(): void {
         this.model = this.fb.group({
@@ -32,7 +34,8 @@ export class NavComponent implements OnInit {
                 next: () => {
                     this.router.navigateByUrl("/members");
                 },
-                error: (error) => console.log(error)
+                error: (error) => this.toastr.error("The credentials are incorrect!")
+                
             });
         }
     }
