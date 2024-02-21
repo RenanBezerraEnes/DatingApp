@@ -34,7 +34,10 @@ export class NavComponent implements OnInit {
                 next: () => {
                     this.router.navigateByUrl("/members");
                 },
-                error: (error) => this.toastr.error("The credentials are incorrect!")
+                error: (error) => {
+                    this.toastr.error("The credentials are incorrect!")
+                    console.log(error.error)
+                }
                 
             });
         }
