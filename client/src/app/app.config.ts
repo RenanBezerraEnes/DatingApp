@@ -4,9 +4,10 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { ErrorInterceptor } from './_interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes),
@@ -14,5 +15,7 @@ export const appConfig: ApplicationConfig = {
       provideHttpClient(withFetch()),
        TooltipModule,
         provideToastr(),
-         provideAnimations()]
+         provideAnimations(),
+         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+        ]
 };
