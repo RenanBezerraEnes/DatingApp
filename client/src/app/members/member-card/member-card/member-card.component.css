@@ -27,8 +27,7 @@
 }
 
 .card-img-wrapper:hover .member-icons {
-    bottom: 5
-    0px;
+    bottom: 50px;
     opacity: 1;
 }
 
