@@ -2,13 +2,14 @@ import { Component, Inject, OnInit, inject } from '@angular/core';
 import { Member } from '../../_models/member';
 import { MemberService } from '../../_services/member.service';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-member-detail',
   standalone: true,
   templateUrl: './member-detail.component.html',
   styleUrls: ['./member-detail.component.css'],
-  imports: []
+  imports: [CommonModule]
 })
 export class MemberDetailComponent implements OnInit {
   member: Member | undefined;
