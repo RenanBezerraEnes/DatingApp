@@ -57,16 +57,23 @@ export class MemberEditComponent implements OnInit {
           lookingFor: member.lookingFor,
           interests: member.interests,
           city: member.city,
-          country: member.country
+          country: member.country,
+          username: member.userName
         });
       }
     })
   }
 
   updateMember(){
-    console.log(this.member, 'Hello World!');
-    this.toastr.success('Profile updated successfully');
-    this.editForm?.reset(this.member);
+    this.memberService.updateMember(this.model?.value).subscribe({
+      next: _ => {
+        this.toastr.success('Profile updated successfully');
+        this.editForm?.reset(this.member);
+      },
+      error: (error) => {
+        console.log(error.error)
+    }
+    })
   }
 
 }
