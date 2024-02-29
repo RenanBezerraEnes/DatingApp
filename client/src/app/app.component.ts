@@ -15,7 +15,7 @@ import { HomeComponent } from './home/home.component';
     imports: [RouterOutlet, HttpClientModule, NgIf, CommonModule, NavComponent, HomeComponent]
 })
 export class AppComponent implements OnInit{
-  title = 'client';
+  title = 'Dating App';
   constructor(private accountService: AccountService){}
 
   ngOnInit(): void {
