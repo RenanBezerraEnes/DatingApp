@@ -24,3 +24,4 @@
 bin/
 API/localhost-key.pem
 API/localhost.pem
+API/appsettings.json
