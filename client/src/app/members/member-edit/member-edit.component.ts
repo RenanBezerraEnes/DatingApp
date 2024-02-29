@@ -9,13 +9,14 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { GalleryModule } from 'ng-gallery';
 import { FormBuilder, FormGroup, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { PhotoEditorComponent } from "../photo-editor/photo-editor.component";
 
 @Component({
-  selector: 'app-member-edit',
-  templateUrl: './member-edit.component.html',
-  styleUrls: ['./member-edit.component.css'],
-  standalone: true,
-  imports: [CommonModule, TabsModule, GalleryModule, ReactiveFormsModule]
+    selector: 'app-member-edit',
+    templateUrl: './member-edit.component.html',
+    styleUrls: ['./member-edit.component.css'],
+    standalone: true,
+    imports: [CommonModule, TabsModule, GalleryModule, ReactiveFormsModule, PhotoEditorComponent]
 })
 export class MemberEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm |undefined;
