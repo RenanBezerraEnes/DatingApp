@@ -8,7 +8,12 @@
           [ngClass]="photo.isMain ? 'btn-sucess active' : 'btn' "
           >Main
           </button>
-          <button class="btn btn-sm btn-danger" style="border-color: #00000000; background-color: #5476ba00;">
+          <button 
+          class="btn btn-sm btn-danger" 
+          style="border-color: #00000000; background-color: #5476ba00;"
+          [disabled]="photo.isMain" 
+          (click)="deletePhoto(photo.id)"
+          >
             <i class="fa fa-trash"></i>
           </button>
         </div>
