@@ -38,4 +38,8 @@ export class MemberService {
     )
   }
 
+  setMainPhoto(photoId: number){
+    return this.http.put(this.apiUrl + 'users/set-main-photo/' + photoId, {});
+  }
+
 }
