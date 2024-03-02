@@ -6,6 +6,8 @@ import { AccountService } from '../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
 import { TextInputComponent } from "../_forms/text-input/text-input.component";
 import { DatePickerComponent } from '../_forms/date-picker/date-picker.component';
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-register',
@@ -17,10 +19,12 @@ import { DatePickerComponent } from '../_forms/date-picker/date-picker.component
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   private fb = inject(FormBuilder); 
+  private router = inject(Router);
   maxDate: Date = new Date();
   private accountService = inject(AccountService);
   private toastr = inject(ToastrService)
   @Output() cancelRegister: EventEmitter<boolean> = new EventEmitter<boolean>();
+  validationErrors: string[] = [];
 
   ngOnInit() {
     this.initializeForm();
@@ -50,20 +54,38 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
-    console.log(this.registerForm?.value);
-      // this.accountService.register(this.registerForm.value).subscribe({
-      //   next: () => {
-      //     this.cancel();
-      //   },
-      //   error: (error) => {
-      //     this.toastr.error("The credentials are incorrect!")
-      //     console.log(error.error)
-      //   }
-      // })
+    const dob = this.getDateOnly(this.registerForm.controls['dateOfBirth'].value);
+    const values = {...this.registerForm.value, dateOfBirth: dob};
+
+    if(!dob){
+      console.error("Date of birth is null or wrong");
+      return
+    }
+      this.accountService.register(values).subscribe({
+        next: () => {
+          this.router.navigateByUrl('/members');
+        },
+        error: (error) => {
+          if (error instanceof HttpErrorResponse && error.status === 400) {
+            if (error.error && error.error.errors) {
+              const validationErrorsObject = error.error.errors;
+              const validationErrorsArray = Object.values(validationErrorsObject).flat();
+              this.validationErrors = validationErrorsArray.map((error: unknown) => String(error));
+            }
+         }
+        }
+      })
   }
 
   cancel(){
     this.cancelRegister.emit(false);
+  }
+
+  private getDateOnly(dob: string | undefined){
+    if(!dob) return;
+    let theDob = new Date(dob);
+    let dateOnly = new Date(theDob.setMinutes(theDob.getMinutes()-theDob.getTimezoneOffset()));
+    return dateOnly.toISOString().slice(0, 10);
   }
 
 }
