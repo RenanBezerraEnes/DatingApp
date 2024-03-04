@@ -10,13 +10,14 @@ import { FormsModule } from '@angular/forms';
 import { UserParams } from '../../_models/userParams';
 import { User } from '../../_models/user';
 import { AccountService } from '../../_services/account.service';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 @Component({
     selector: 'app-members-list',
     standalone: true,
     templateUrl: './members-list.component.html',
     styleUrls: ['./members-list.component.css'],
-    imports: [CommonModule, MemberCardComponent, PaginationModule, FormsModule]
+    imports: [CommonModule, MemberCardComponent, PaginationModule, FormsModule, ButtonsModule]
 })
 export class MembersListComponent implements OnInit {
   // members$: Observable<Member[]> | undefined;

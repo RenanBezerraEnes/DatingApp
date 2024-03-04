@@ -20,7 +20,7 @@ export class MemberService {
     params = params.append('minAge', userParams.minAge);
     params = params.append('maxAge', userParams.maxAge);
     params = params.append('gender', userParams.gender);
-    //params = params.append('orderBy', userParams.orderBy);
+    params = params.append('orderBy', userParams.orderBy);
 
     return this.getPaginatedResult<Member[]>(this.apiUrl + 'users', params);
   }
