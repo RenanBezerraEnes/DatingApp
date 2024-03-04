@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, inject } from '@angular/core';
 import { Member } from '../../_models/member';
 import { MemberService } from '../../_services/member.service';
 import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
 
@@ -31,6 +31,7 @@ export class MemberDetailComponent implements OnInit {
 
     this.memberService.getMember(username).subscribe({
       next: member => {this.member = member,
+      
       this.loadImages()
       }
     })
@@ -41,6 +42,11 @@ export class MemberDetailComponent implements OnInit {
     for(const photo of this.member?.photos){
       this.images.push(new ImageItem({src: photo.url, thumb: photo.url}))
     }
+  }
+
+  formatLastActiveDate(): string {
+    if (!this.member || !this.member.lastActive) return '';
+    return this.member.lastActive.toLocaleString(); // Adjust toLocaleString() according to your date format requirements
   }
 
 }
