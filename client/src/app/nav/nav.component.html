@@ -17,7 +17,7 @@
 
         <div class="d-flex align-items-center justify-content-between" style="width: 300px; margin-left: auto; margin-right: auto;" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
           <img [src]="user?.photoUrl || '../../../../assets/user.png'" alt="user photo">
-          <a class="nav-link text-light" dropdownToggle>Welcome {{user.username | titlecase}}</a>
+          <a class="nav-link text-light" dropdownToggle>Welcome {{user.knownAs | titlecase}}</a>
           <a class="nav-link text-light" routerLink="/member/edit">Edit Profile</a>
           <a class="nav-link text-light" (click)="logout()">Logout</a>
         </div>
