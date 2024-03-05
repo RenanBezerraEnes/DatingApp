@@ -19,7 +19,7 @@ export class NavComponent implements OnInit {
     public accountService = inject(AccountService);
     private fb = inject(FormBuilder);
     private router = inject(Router);
-    private toastr = inject(ToastrService)
+    private toastr = inject(ToastrService);
 
     ngOnInit(): void {
         this.model = this.fb.group({
