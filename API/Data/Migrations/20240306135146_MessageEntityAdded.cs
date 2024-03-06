@@ -20,7 +20,7 @@ namespace API.Data.Migrations
                     SenderId = table.Column<int>(type: "INTEGER", nullable: false),
                     SenderName = table.Column<string>(type: "TEXT", nullable: true),
                     RecipientId = table.Column<int>(type: "INTEGER", nullable: false),
-                    RecipientName = table.Column<int>(type: "INTEGER", nullable: false),
+                    RecipientName = table.Column<string>(type: "TEXT", nullable: false),
                     Content = table.Column<string>(type: "TEXT", nullable: true),
                     DateRead = table.Column<DateTime>(type: "TEXT", nullable: true),
                     MessageSent = table.Column<DateTime>(type: "TEXT", nullable: false),
