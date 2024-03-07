@@ -1,0 +1,15 @@
+.img-circle {
+    max-height: 50px;
+}
+
+th {
+    color: white;
+}
+
+td {
+    color: white;
+}
+
+.table, .table-hover {
+    --bs-table-bg: linear-gradient(90deg, #33b7e2, #5e62b0, #dc307c);;
+}
