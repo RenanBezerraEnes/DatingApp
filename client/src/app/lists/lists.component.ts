@@ -2,7 +2,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Member } from '../_models/member';
 import { MemberService } from '../_services/member.service';
 import { CommonModule } from '@angular/common';
-import { TabsModule } from 'ngx-bootstrap/tabs';
 import { MemberCardComponent } from "../members/member-card/member-card/member-card.component";
 import { FormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
@@ -14,7 +13,7 @@ import { Pagination } from '../_models/pagination';
     standalone: true,
     templateUrl: './lists.component.html',
     styleUrls: ['./lists.component.css'],
-    imports: [CommonModule, TabsModule, MemberCardComponent, FormsModule, PaginationModule, ButtonsModule, FormsModule]
+    imports: [CommonModule, MemberCardComponent, FormsModule, PaginationModule, ButtonsModule]
 })
 export class ListsComponent implements OnInit {
   members: Member[] | undefined;

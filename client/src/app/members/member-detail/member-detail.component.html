@@ -24,22 +24,22 @@
         </div>
     </div>
     <div class="col-8">
-        <tabset class="member-tabset">
-            <tab heading="About {{member?.knownAs}}" class="member-item">
+        <tabset class="member-tabset" #memberTabs>
+            <tab heading="About {{member?.knownAs}}" class="member-item" (selectTab)="onTabActivated($event)">
                 <h4>Description</h4>
                 <p>{{member.introduction}}</p>
                 <h4>Looking for</h4>
                 <p>{{member.lookingFor}}</p>
             </tab>
-            <tab heading="Interests">
+            <tab heading="Interests" (selectTab)="onTabActivated($event)">
                 <h4>Interest</h4>
                 <p>{{member.interests}}</p>
             </tab>
-            <tab heading="Photos" #photoTab="tab">
+            <tab heading="Photos" #photoTab="tab" (selectTab)="onTabActivated($event)">
                 <gallery *ngIf="photoTab.active" [items]="images" class="gallery"></gallery>
             </tab>
-            <tab heading="Messages">
-                <p>Messages will go here</p>
+            <tab heading="Messages" (selectTab)="onTabActivated($event)">
+                <app-member-messages [messages]="messages" [username]="member.userName"></app-member-messages>
             </tab>
         </tabset>
     </div>

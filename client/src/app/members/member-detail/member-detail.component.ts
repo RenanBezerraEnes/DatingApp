@@ -1,28 +1,53 @@
-import { Component, Inject, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { Member } from '../../_models/member';
 import { MemberService } from '../../_services/member.service';
 import { ActivatedRoute } from '@angular/router';
-import { CommonModule, DatePipe } from '@angular/common';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { CommonModule } from '@angular/common';
+import { TabDirective, TabsModule, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
+import { MemberMessagesComponent } from "../member-messages/member-messages.component";
+import { MessageService } from '../../_services/message.service';
+import { Message } from '../../_models/message';
 
 
 @Component({
-  selector: 'app-member-detail',
-  standalone: true,
-  templateUrl: './member-detail.component.html',
-  styleUrls: ['./member-detail.component.css'],
-  imports: [CommonModule, TabsModule, GalleryModule]
+    selector: 'app-member-detail',
+    standalone: true,
+    templateUrl: './member-detail.component.html',
+    styleUrls: ['./member-detail.component.css'],
+    imports: [CommonModule, TabsModule, GalleryModule, MemberMessagesComponent]
 })
 export class MemberDetailComponent implements OnInit {
+  @ViewChild('memberTabs') memberTabs?: TabsetComponent;
   member: Member | undefined;
   images: GalleryItem[] = [];
-  private memberService = inject(MemberService);
+  messages: Message[] = [];
+  activeTab?: TabDirective;
 
-  constructor(private route: ActivatedRoute){}
+  private memberService = inject(MemberService);
+  private route = inject(ActivatedRoute);
+  private messageService = inject(MessageService);
+
+  constructor(){}
 
   ngOnInit() {
     this.loadMember();
+  }
+
+  onTabActivated(data: TabDirective){
+    this.activeTab = data;
+    if(this.activeTab.heading === 'Messages'){
+      this.loadMessages();
+    }
+  }
+
+  
+  loadMessages(){
+    if(this.member){
+      this.messageService.getMessageThread(this.member.userName).subscribe({
+        next: messages => this.messages = messages
+      })
+    }
   }
 
   loadMember(){
