@@ -29,4 +29,8 @@ export class MessageService {
     return this.http.post<Message>(this.apiUrl + 'messages', {recipientUsername: username, content});
   }
 
+  deleteMessage(id: number){
+    return this.http.delete(this.apiUrl + 'messages/' + id);
+  }
+
 }
