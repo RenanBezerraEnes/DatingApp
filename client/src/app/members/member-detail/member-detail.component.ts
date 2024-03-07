@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { Member } from '../../_models/member';
-import { MemberService } from '../../_services/member.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TabDirective, TabsModule, TabsetComponent } from 'ngx-bootstrap/tabs';
@@ -24,7 +23,6 @@ export class MemberDetailComponent implements OnInit {
   messages: Message[] = [];
   activeTab?: TabDirective;
 
-  private memberService = inject(MemberService);
   private route = inject(ActivatedRoute);
   private messageService = inject(MessageService);
 
@@ -65,19 +63,7 @@ export class MemberDetailComponent implements OnInit {
       })
     }
   }
-
-  // loadMember(){
-  //   const username = this.route.snapshot.paramMap.get('username');
-  //   if(!username) return;
-
-  //   this.memberService.getMember(username).subscribe({
-  //     next: member => {this.member = member,
-      
-  //     this.loadImages()
-  //     }
-  //   })
-  // }
-
+  
   loadImages(){
     if(!this.member) return;
     for(const photo of this.member?.photos){

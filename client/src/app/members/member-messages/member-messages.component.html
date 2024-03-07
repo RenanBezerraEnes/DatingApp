@@ -17,13 +17,13 @@
                   <div class="header">
                     <small class="text-muted">
                       <span class="fa fa-clock-o">
-                          {{message.messageSent | date}}
+                          {{message.messageSent | date:'dd MMM yyyy'}}
                       </span>
                       <span class="text-danger" *ngIf="!message.dateRead 
                           && message.senderName !== username">(unread)
                       </span>
                       <span class="text-success" *ngIf="message.dateRead 
-                          && message.senderName !== username">(read {{message.dateRead | date}})
+                          && message.senderName !== username">(read {{message.dateRead | date:'dd MMM yyyy'}})
                       </span>
                     </small>
                   </div>
@@ -35,14 +35,17 @@
   </div>
 
   <div class="card-footer">
-      <form>
+      <form #messageForm="ngForm" (ngSubmit)="sendMessage()" autocomplete="off">
         <div class="input-group">
           <input 
+            name="messageContent"
+            required
+            [(ngModel)]="messageContent"
             class="form-control input-sm" 
             placeholder="Send a private message"
             type="text">
             <div class="input-group-append">
-                <button class="btn btn-primary" type="submit">
+                <button [disabled]="!messageForm.valid" class="btn btn-primary" type="submit">
                   Send
                 </button>
             </div>
