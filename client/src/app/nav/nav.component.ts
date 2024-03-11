@@ -4,12 +4,13 @@ import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angula
 import { AccountService } from '../_services/account.service';
 import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { HasRoleDirective } from '../_directives/has-role.directive';
 
 @Component({
     selector: 'app-nav',
     standalone: true,
     imports: [
-        CommonModule, ReactiveFormsModule, RouterModule
+        CommonModule, ReactiveFormsModule, RouterModule, HasRoleDirective
     ],
     templateUrl: './nav.component.html',
     styleUrls: ['./nav.component.css'],
