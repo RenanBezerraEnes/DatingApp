@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { User } from '../_models/user';
 import { environment } from '../../environments/environment';
+import { PresenceService } from './presence.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class AccountService {
 apiUrl = environment.baseUrl;
 private currentUserSource = new BehaviorSubject<User | null>(null);
 currentUser$ = this.currentUserSource.asObservable();
-private http = inject(HttpClient)
+private http = inject(HttpClient);
+private presenceService = inject(PresenceService);
 
 constructor() { }
 
@@ -43,11 +45,17 @@ login(model: any) {
   Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
   localStorage.setItem('user', JSON.stringify(user));
   this.currentUserSource.next(user);
+
+  //Starting connection with SignalR
+  this.presenceService.createHubConnection(user);
  }
 
  logout(){
   localStorage.removeItem('user');
   this.currentUserSource.next(null);
+
+  //Stopping connection with SignalR
+  this.presenceService.stopHubConnection();
  }
 
  getDecodedToken(token: string){
