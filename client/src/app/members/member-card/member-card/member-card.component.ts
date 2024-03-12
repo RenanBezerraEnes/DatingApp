@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MemberService } from '../../../_services/member.service';
 import { ToastrService } from 'ngx-toastr';
+import { PresenceService } from '../../../_services/presence.service';
 
 @Component({
   selector: 'app-member-card',
@@ -17,6 +18,7 @@ export class MemberCardComponent implements OnInit {
 
   private memberService = inject(MemberService);
   private toastr = inject(ToastrService);
+  public presenceService = inject(PresenceService);
 
   constructor() { }
 

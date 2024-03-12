@@ -7,6 +7,7 @@ import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
 import { MemberMessagesComponent } from "../member-messages/member-messages.component";
 import { MessageService } from '../../_services/message.service';
 import { Message } from '../../_models/message';
+import { PresenceService } from '../../_services/presence.service';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class MemberDetailComponent implements OnInit {
 
   private route = inject(ActivatedRoute);
   private messageService = inject(MessageService);
+  public presenceService = inject(PresenceService);
 
   constructor(){}
 
