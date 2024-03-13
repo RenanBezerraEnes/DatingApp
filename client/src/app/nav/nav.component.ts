@@ -34,10 +34,10 @@ export class NavComponent implements OnInit {
             this.accountService.login(this.model.value).subscribe({
                 next: () => {
                     this.router.navigateByUrl("/members");
+                    this.model.reset();
                 },
                 error: (error) => {
                     this.toastr.error("The credentials are incorrect!")
-                    console.log(error.error)
                 }
                 
             });
