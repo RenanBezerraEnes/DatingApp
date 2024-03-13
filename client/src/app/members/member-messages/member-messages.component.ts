@@ -1,5 +1,4 @@
-import { Component, Input, OnInit, ViewChild, inject } from '@angular/core';
-import { Message } from '../../_models/message';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MessageService } from '../../_services/message.service';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -8,6 +7,7 @@ import { FormsModule, NgForm } from '@angular/forms';
   selector: 'app-member-messages',
   templateUrl: './member-messages.component.html',
   styleUrls: ['./member-messages.component.css'],
+  changeDetection:ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule, FormsModule]
 })
