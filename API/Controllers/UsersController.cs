@@ -44,7 +44,11 @@ public class UsersController : BaseApiController
     [HttpGet("{username}")] //api/users/{id}
     public async Task<ActionResult<MemberDto>> GetUser(string username)
     {
-        return await _unitOfWork.UserRepository.GetMemberAsync(username);
+        var currentUsername = User.GetUserName();
+
+        return await _unitOfWork.UserRepository.GetMemberAsync(username,
+        isCurrentUser: currentUsername == username
+        );
     }
 
     [HttpPut]
@@ -66,8 +70,6 @@ public class UsersController : BaseApiController
     {
         var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUserName());
 
-        if (user == null) return NotFound();
-
         var result = await _photoService.AddPhotoAsync(file);
 
         if (result.Error != null) return BadRequest(result.Error.Message);
@@ -77,8 +79,6 @@ public class UsersController : BaseApiController
             Url = result.SecureUrl.AbsoluteUri,
             PublicId = result.PublicId
         };
-
-        if (user.Photos.Count == 0) photo.IsMain = true;
 
         user.Photos.Add(photo);
 
@@ -118,7 +118,7 @@ public class UsersController : BaseApiController
     {
         var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUserName());
 
-        var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
+        var photo = await _unitOfWork.PhotoRepository.GetPhotoById(photoId);
 
         if (photo == null) return NotFound();
 
